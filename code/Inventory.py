@@ -11,7 +11,14 @@ class Inventory:
         for k,v in self.products.items(): # Exiba o estoque
             print(f'{k}: {v['quantidade']}')
 
-    def subtract_products(self,product , quantity): # Diminui o número de items após venda
+    def looking_for_product(self, product):
+        if product in self.products:
+            if self.products[product]['quantidade'] > 0:
+                print(f'Há {self.products['quantidade']}, de {product} no estoque.')
+                sell(product, product['preco'])
+
+
+    def subtract_products(self, product, quantity): # Diminui o número de items após venda
         self.products[product]['quantidade'] -= quantity
 
     def add_products(self):#adicione items ao seu estoque
@@ -32,4 +39,5 @@ class Inventory:
             else:
                 print('Valor inválido, Voltando ao inicio.')
                 return
+
 

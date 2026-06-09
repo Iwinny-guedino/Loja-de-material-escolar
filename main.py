@@ -1,6 +1,7 @@
-
+from code.Inventory import Inventory
 app = True
 
+i = Inventory()
 
 while app:
     print(' """""Loja de materiais escolares""""" \n'
@@ -15,6 +16,7 @@ while app:
 
     if interface == 1:
         item = input("Digite o nome do item: ")
+        i.looking_for_product(item)
 
     elif interface == 2:
         pass
