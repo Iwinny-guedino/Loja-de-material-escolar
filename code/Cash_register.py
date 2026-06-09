@@ -7,3 +7,6 @@ class CashRegister:
 
     def subtract_money(self,payment):
         self.money -= payment
+
+    def show_money(self):
+        print(self.money)

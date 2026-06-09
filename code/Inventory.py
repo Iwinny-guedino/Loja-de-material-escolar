@@ -1,5 +1,7 @@
+
 class Inventory:
     def __init__(self):
+
         self.products = {'Apontador': {'quantidade': 10, 'preco': 3.50},
                          'Borracha': {'quantidade': 25, 'preco': 2.00},
                          'Caderno': {'quantidade': 18, 'preco': 22.50},
@@ -11,11 +13,6 @@ class Inventory:
         for k,v in self.products.items(): # Exiba o estoque
             print(f'{k}: {v['quantidade']}')
 
-    def looking_for_product(self, product):
-        if product in self.products:
-            if self.products[product]['quantidade'] > 0:
-                print(f'Há {self.products['quantidade']}, de {product} no estoque.')
-                sell(product, product['preco'])
 
 
     def subtract_products(self, product, quantity): # Diminui o número de items após venda
