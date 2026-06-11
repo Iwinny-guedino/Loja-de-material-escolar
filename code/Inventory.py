@@ -12,6 +12,7 @@ class Inventory:
     def show_inventory(self):
         for k,v in self.products.items(): # Exiba o estoque
             print(f'{k}: {v['quantidade']}')
+            print()
 
 
 
@@ -20,8 +21,8 @@ class Inventory:
 
     def add_products(self):#adicione items ao seu estoque
         try:
-            product = input('Qual produto deseja adicionar ao estoque? ')
-            quantity = int(input('Digite a quantidade: '))
+            product = input('\nQual produto deseja adicionar ao estoque? ')
+            quantity = int(input('\nDigite a quantidade: '))
         except:
             print('Input inválido')
             return
@@ -30,11 +31,11 @@ class Inventory:
             self.products[product]['quantidade'] += quantity
 
         else:
-            price = float(input('Digite o preco do produto: '))
+            price = float(input('\nDigite o preco do produto: '))
             if price:
                 self.products.update({ product:{'quantidade': quantity, 'preco': price} })
             else:
-                print('Valor inválido, Voltando ao inicio.')
+                print('\nValor inválido, Voltando ao inicio.')
                 return
 
 

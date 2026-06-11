@@ -3,16 +3,26 @@ import random
 class Staff:
     def __init__(self):
         self.staff_members = {
-            'Rodrigo': {'senha': 123, 'vendas': 0, 'bonus': 0},
-            'Mariana': {'senha': 456, 'vendas': 0, 'bonus': 0},
-            'Samara': {'senha': 789, 'vendas': 0, 'bonus': 0},
+            'Rodrigo': {'vendas': 0.0, 'bonus': 0},
+            'Mariana': {'vendas': 0.0, 'bonus': 0},
+            'Samara': {'vendas': 0.0, 'bonus': 0},
         }
 
-    @staticmethod
-    def staff_workin(staff_members):
-        chosen_member = random.choice(staff_members)
 
-    def staff_sales(self,chosen_member,product_price):
-        chosen_member['vendas'] += product_price
-        chosen_member['bonus'] += (product_price * 0.10)
+    def staff_working(self):
+        staff =  []
+        for k in self.staff_members:
+            staff.append(k)
+        chosen_worker = random.choice(staff)
+        return chosen_worker
+
+
+    def staff_sales(self,chosen_worker,product_price):
+        self.staff_members[chosen_worker]['vendas'] += product_price
+        self.staff_members[chosen_worker]['bonus'] += (product_price * 0.10)
+        print()
+
+    def show_staff_sales(self,):
+        for k, v in self.staff_members.items():
+            print(f'{k}: Vendas = R${v['vendas']}, Bonus = R${v['bonus']} ')
 

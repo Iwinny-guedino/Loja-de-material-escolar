@@ -1,26 +1,28 @@
 
-
 class Transaction:
-    def __init__(self,cash_register,inventory):
+    def __init__(self,cash_register,inventory,staff):
         self.cr = cash_register
         self.i = inventory
+        self.s = staff
+        self.s.seller = self.s.staff_working()
 
 
-    def looking_for_product(self, product):
+    def looking_for_product(self, product): # Procurando produto no estoque
         if product in self.i.products:
             if self.i.products[product]['quantidade'] > 0:
-                print(f'Há {self.i.products[product]['quantidade']}, de {product} no estoque.')
+                print(f'Há {self.i.products[product]['quantidade']}, {product}(es/os) no estoque.\n')
                 self.sell(product, self.i.products[product]['preco'])
 
     def sell(self, product, price):
-        quantity = float(input(f'Quantos {product} para esta venda: '))
+        quantity = float(input(f'Quantos {product}(es/os) deseja vender: '))
         total = quantity * price
-        self.proceed(total)
+        print(f'O valor total é de: {total}')
+        self.proceed(total, product, quantity)
 
-    def proceed(self, total):
-            foward = input('Dejesa continuar? (S/N): ').lower()
+    def proceed(self, total, product, quantity): #Consirmação de compra
+            foward = input('Dejesa continuar com a venda? (S/N): ').lower()
             if foward == 's':
-                self.transaction(total)
+                self.transaction(total, product, quantity)
             elif foward == 'n':
                 print('Venda cancelada.')
                 return
@@ -28,19 +30,23 @@ class Transaction:
                 print('Por favor, digite uma das opções acima.')
                 pass
 
-    def transaction(self,total):
-        payment = float(input('Valor depositado: '))
+    def transaction(self,total, product, quantity):
+        payment = float(input('\nValor depositado: '))
         if payment > total:
             change = payment - total
+            self.i.subtract_products(product, quantity)
             self.cr.add_money(total)
-            print(f'Seu troco é de R$ {change}')
+            self.s.staff_sales(self.s.seller, total)
+            print(f'\nSeu troco é de R$ {change}')
 
         elif payment == total:
             self.cr.add_money(total)
-            print(f'Seu troco é R$ 0')
+            self.i.subtract_products(product, quantity)
+            self.s.staff_sales(self.s.seller, total)
+            print(f'\nSeu troco é R$ 0')
 
         elif payment < total:
-            print('Deposito insuficiente.')
+            print('\nDeposito insuficiente.')
 
         else:
-            print('Input inválido!')
+            print('\nInput inválido!')
